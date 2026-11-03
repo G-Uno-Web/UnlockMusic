@@ -1,51 +1,114 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta content="webkit" name="renderer"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width,initial-scale=1" name="viewport"><title>音乐解锁</title><meta content="音乐,解锁,ncm,qmc,mgg,mflac,qq音乐,网易云音乐,加密" name="keywords"><meta content="音乐解锁 - 在任何设备上解锁已购的加密音乐！" name="description"><style>#loader {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        z-index: 1010;
-        margin: -75px 0 0 -75px;
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #1db1ff;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      #loader-mask {
-        text-align: center;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: 0;
-        z-index: 1009;
-        background-color: rgba(242, 246, 252, 0.88);
-      }
-      @media (prefers-color-scheme: dark) {
-        #loader-mask {
-          color: #fff;
-          background-color: rgba(0, 0, 0, 0.85);
-        }
-        #loader-mask a {
-          color: #ddd;
-        }
-        #loader-mask a:hover {
-          color: #1db1ff;
-        }
-      }
-      #loader-source {
-        font-size: 1.5rem;
-      }
-      #loader-tips-timeout {
-        font-size: 1.2rem;
-      }</style><link href="css/app.91e7a73a.css" rel="preload" as="style"><link href="css/chunk-vendors.094863c6.css" rel="preload" as="style"><link href="js/app.93b72dee.js" rel="preload" as="script"><link href="js/chunk-vendors.5db7ca01.js" rel="preload" as="script"><link href="css/chunk-vendors.094863c6.css" rel="stylesheet"><link href="css/app.91e7a73a.css" rel="stylesheet"><link rel="icon" type="image/png" sizes="32x32" href="./img/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="./img/icons/favicon-16x16.png"><link rel="manifest" href="web-manifest.json"><meta name="theme-color" content="#4DBA87"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="音乐解锁"><link rel="apple-touch-icon" href="./img/icons/apple-touch-icon-152x152.png"><link rel="mask-icon" href="./img/icons/safari-pinned-tab.svg" color="#4DBA87"><meta name="msapplication-TileImage" content="./img/icons/msapplication-icon-144x144.png"><meta name="msapplication-TileColor" content="#000000"></head><body><div id="loader-mask"><div id="loader"></div><noscript><h3 id="loader-js">请启用JavaScript</h3></noscript><h3 id="loader-source">请勿直接运行源代码！</h3><div id="loader-tips-outdated" hidden><h2>您可能在使用不受支持的<span style="color: #f00">过时</span>浏览器，这可能导致此应用无法正常工作。</h2><h3>如果您使用双核浏览器，您可以尝试切换到 <span style="color: #f00">“极速模式”</span> 解决此问题。</h3><h3>或者，您可以尝试更换下方的几个浏览器之一。</h3></div><h3 id="loader-tips-timeout" hidden>音乐解锁采用了一些新特性！建议使用 <a href="https://www.microsoft.com/zh-cn/edge" target="_blank">Microsoft Edge Chromium</a> <a href="https://www.google.cn/chrome/" target="_blank">Google Chrome</a> <a href="https://www.firefox.com.cn/" target="_blank">Mozilla Firefox</a> | <a href="https://git.unlock-music.dev/um/web/wiki/使用提示" target="_blank">使用提示</a></h3></div><div id="app"></div><script src="./loader.js"></script><script src="js/chunk-vendors.5db7ca01.js"></script><script src="js/app.93b72dee.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音乐解锁 - 在浏览器本地解锁加密的音乐文件</title>
+  <meta name="description" content="在浏览器中解锁 QQ 音乐、网易云音乐、酷狗、酷我、虾米等加密的音乐文件。100% 本地处理，文件不会上传到任何服务器。">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎵</span>
+        <div>
+          <h1>音乐解锁</h1>
+          <p class="subtitle">在浏览器本地解锁加密的音乐文件</p>
+        </div>
+      </div>
+      <div class="privacy-badge" title="所有解密均在您的浏览器中完成，文件不会离开您的设备">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        100% 本地处理 · 无上传
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- 上传区 -->
+    <section class="upload-zone" id="uploadZone">
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <p class="upload-title">点击选择 或 拖拽文件到此处</p>
+      <p class="upload-hint">支持批量处理，解密在本地多线程并行完成</p>
+      <div class="format-chips" id="formatChips"></div>
+      <input type="file" id="fileInput" multiple hidden
+             accept=".qmc0,.qmc2,.qmc3,.qmc4,.qmc6,.qmc8,.qmcflac,.qmcogg,.tkm,.mflac,.mflac0,.mgg,.mgg0,.mgg1,.mggl,.mmp4,.bkcmp3,.bkcm4a,.bkcflac,.bkcwav,.bkcape,.bkcogg,.bkcwma,.tm0,.tm2,.tm3,.tm6,.cache,.ncm,.uc,.kgm,.kgma,.vpr,.kwm,.xm,.mg3d,.x2m,.x3m,.mp3,.flac,.wav,.m4a,.ogg">
+    </section>
+
+    <!-- 工具栏 -->
+    <section class="toolbar" id="toolbar" hidden>
+      <div class="toolbar-left">
+        <span id="summaryText"></span>
+      </div>
+      <div class="toolbar-right">
+        <label class="switch-label" id="instantSaveLabel" hidden>
+          <input type="checkbox" id="instantSaveToggle">
+          <span class="switch"></span>
+          立即保存到文件夹
+        </label>
+        <button class="btn btn-primary" id="downloadAllBtn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          全部下载 (ZIP)
+        </button>
+        <button class="btn btn-ghost" id="clearBtn">清空列表</button>
+      </div>
+    </section>
+
+    <!-- 结果列表 -->
+    <section class="results" id="results" hidden>
+      <div class="table-wrap">
+        <table class="file-table">
+          <thead>
+            <tr>
+              <th class="col-cover"></th>
+              <th class="col-title">歌曲</th>
+              <th class="col-artist">歌手</th>
+              <th class="col-album">专辑</th>
+              <th class="col-ext">格式</th>
+              <th class="col-size">大小</th>
+              <th class="col-actions">操作</th>
+            </tr>
+          </thead>
+          <tbody id="fileTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 支持格式说明 -->
+    <section class="formats-card">
+      <h2>支持的格式</h2>
+      <div class="format-groups" id="formatGroups"></div>
+      <p class="formats-note">
+        解密后的输出格式即为源文件的原始编码（MP3 / FLAC / OGG / WAV / M4A 等），全程无损、不重新编码。<br>
+        <code>.mflach</code> 等新格式需要使用 <a href="https://git.um-react.app/um/cli" target="_blank" rel="noopener">官方 CLI 版本</a>解锁。
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      本项目功能对标 <a href="https://demo.unlock-music.dev/" target="_blank" rel="noopener">Unlock Music</a>，
+      解密算法参考其开源实现（MIT License），WASM 模块来自 <code>@xhacker/qmcwasm</code> 与 <code>@xhacker/kgmwasm</code>（Apache-2.0）。
+    </p>
+    <p>⚠️ 仅用于解锁您已合法获取的音乐文件（如已购歌曲的个人备份），请尊重版权，勿用于传播。</p>
+  </footer>
+
+  <!-- Toast 容器 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- 单曲音频预览 -->
+  <audio id="previewAudio" hidden></audio>
+
+  <script src="js/zip.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

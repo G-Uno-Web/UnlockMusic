@@ -1,77 +1,90 @@
-# Unlock Music 音乐解锁
+# 音乐解锁 (Music Unlock)
 
-[![Build Status](https://ci.unlock-music.dev/api/badges/um/web/status.svg)](https://ci.unlock-music.dev/um/web)
+一个纯前端的加密音乐解锁工具，功能对标 [Unlock Music](https://demo.unlock-music.dev/)。
+在浏览器中本地解锁加密的音乐文件 —— **文件不会上传到任何服务器**。
 
-- 在浏览器中解锁加密的音乐文件。 Unlock encrypted music file in the browser.
-- Unlock Music 项目是以学习和技术研究的初衷创建的，修改、再分发时请遵循[授权协议]。
-- Unlock Music 的 CLI 版本可以在 [unlock-music/cli] 找到，大批量转换建议使用 CLI 版本。
-- 我们新建了 Telegram 群组 [`@unlock_music_chat`] ，欢迎加入！
-- CI 自动构建已经部署，可以在 [UM-Packages] 下载
+## 功能特性
 
-[授权协议]: https://git.unlock-music.dev/um/web/src/branch/master/LICENSE
-[unlock-music/cli]: https://git.unlock-music.dev/um/cli
-[`@unlock_music_chat`]: https://t.me/unlock_music_chat
-[UM-Packages]: https://git.unlock-music.dev/um/-/packages/generic/web-build/
+- 🔒 **100% 本地处理**：解密全部在浏览器 Web Worker 中完成，断网也能用
+- 🎵 **格式覆盖广**：QQ音乐（含新版 mflac/mgg）、网易云、酷狗、酷我、虾米、咪咕、喜马拉雅等 40+ 种扩展名
+- ⚡ **WASM 加速**：QMC/KGM 使用与官方版本相同的 WebAssembly 模块解密
+- 🖼️ **元数据完整**：解密后解析标题/歌手/专辑/封面，并为无标签文件回写 ID3 / FLAC 标签
+- 📦 **批量处理**：多文件并行解密，支持一键 ZIP 打包下载
+- 💾 **立即保存**：支持 File System Access API，解锁完成自动写入指定文件夹（Chrome/Edge）
+- ▶️ **在线试听**：解密完成后可直接播放
+- 🚀 **零依赖部署**：纯静态文件，无需构建，任意静态服务器均可托管
 
-## 特性
+## 支持的格式
 
-### 支持的格式
+| 平台 | 扩展名 |
+| --- | --- |
+| QQ音乐 | `.qmc0 .qmc2 .qmc3 .qmc4 .qmc6 .qmc8 .qmcflac .qmcogg .tkm .cache .tm0 .tm2 .tm3 .tm6` |
+| QQ音乐(新版) | `.mflac .mflac0 .mgg .mgg0 .mgg1 .mggl .mmp4` |
+| Moo 音乐 | `.bkcmp3 .bkcm4a .bkcflac .bkcwav .bkcape .bkcogg .bkcwma` |
+| 网易云音乐 | `.ncm`（含缓存 `.uc`） |
+| 酷狗音乐 | `.kgm .kgma .vpr` |
+| 酷我音乐 | `.kwm` |
+| 虾米音乐 | `.xm` |
+| 咪咕音乐 | `.mg3d` |
+| 喜马拉雅 | `.x2m .x3m` |
+| 微云导出 | `.666c6163 .6d7033 .6f6767 .6d3461 .776176`（十六进制后缀） |
+| 原始格式 | `.mp3 .flac .wav .m4a .ogg`（直通并补全标签） |
 
-- [x] QQ 音乐 (.qmc0/.qmc2/.qmc3/.qmcflac/.qmcogg/.tkm)
-- [x] Moo 音乐格式 (.bkcmp3/.bkcflac/...)
-- [x] QQ 音乐 Tm 格式 (.tm0/.tm2/.tm3/.tm6)
-- [x] QQ 音乐新格式 (.mflac/.mgg/.mflac0/.mgg1/.mggl)
-- [x] <ruby>QQ 音乐海外版<rt>JOOX Music</rt></ruby> (.ofl_en)
-- [x] 网易云音乐格式 (.ncm)
-- [x] 虾米音乐格式 (.xm)
-- [x] 酷我音乐格式 (.kwm)
-- [x] 酷狗音乐格式 (.kgm/.vpr)
-- [x] Android版喜马拉雅文件格式 (.x2m/.x3m)
-- [x] 咪咕音乐格式 (.mg3d)
-
-### 其他特性
-
-- [x] 在浏览器中解锁
-- [x] 拖放文件
-- [x] 批量解锁
-- [x] 渐进式 Web 应用 (PWA)
-- [x] 多线程
-- [x] 写入和编辑元信息与专辑封面
+> `.mflach` 等最新格式请使用[官方 CLI 版本](https://git.um-react.app/um/cli)。
+> JOOX（`.ofl_en`）需要应用 UUID 密钥，本站未实现。
 
 ## 使用方法
 
-### 使用预构建版本
+```bash
+# 任选一种方式启动静态服务器
+cd site
+python -m http.server 8000
+# 或
+npx serve .
+```
 
-- 从 [Release] 或 [CI 构建][UM-Packages] 下载预构建的版本
-  - :warning: 本地使用请下载`legacy版本`（`modern版本`只能通过 **http(s)协议** 访问）
-- 解压缩后即可部署或本地使用（**请勿直接运行源代码**）
+打开 `http://localhost:8000`，拖入加密音乐文件即可。
 
-[release]: https://git.unlock-music.dev/um/web/releases/latest
+> 提示：通过 HTTP(S) 访问体验最佳；直接双击 index.html（file:// 协议）时部分浏览器可能限制 Worker。
 
-### 自行构建
+## 测试
 
-- 环境要求
-  - nodejs (v16.x)
-  - npm
+```bash
+node test/run-tests.mjs
+```
 
-1. 获取项目源代码后安装相关依赖：
+测试覆盖：AES-128-ECB（与 Node crypto 对比）、NCM/KWM/XM/TM/咪咕/喜马拉雅/网易云缓存 构造→解密 roundtrip、ID3/FLAC 标签读写、ZIP 打包、QMC WASM（官方测试向量，需先下载至 `test/vectors/`）。
 
-   ```sh
-   npm install
-   npm ci
-   ```
+## 目录结构
 
-2. 然后进行构建：
+```
+site/
+  index.html              # 主页面
+  css/style.css           # 样式
+  js/main.js              # UI 逻辑（Worker 池、表格、下载）
+  js/worker.js            # 解密 Worker
+  js/zip.js               # store-only ZIP 打包器
+  js/decrypt/
+    index.js              # 格式分发器
+    utils.js              # 嗅探/工具
+    aes.js                # 纯 JS AES-128-ECB
+    ncm.js kwm.js xm.js   # 各格式解密
+    kgm.js qmc.js         # WASM 封装
+    misc.js tm.js raw.js ximalaya.js
+    metadata.js           # 元数据解析 (ID3v2/FLAC/OGG/M4A)
+    id3writer.js flacwriter.js  # 标签回写
+  js/lib/wasm/            # QMC/KGM WASM 模块（Apache-2.0）
+test/
+  run-tests.mjs           # Node 测试套件
+  vectors/                # 官方 QMC 测试向量（下载脚本）
+```
 
-   ```sh
-   npm run build
-   ```
+## 致谢与许可
 
-   - 构建后的产物可以在 `dist` 目录找到。
-   - 如果是用于开发，可以执行 `npm run serve`。
+- 解密算法参考 [unlock-music/web](https://git.um-react.app/um/web)（MIT License）
+- WASM 模块来自 npm 包 `@xhacker/qmcwasm`、`@xhacker/kgmwasm`（Apache-2.0 License）
 
-3. 如需构建浏览器扩展，构建成功后还需要执行：
+## 免责声明
 
-   ```sh
-   npm run make-extension
-   ```
+本项目仅供学习与技术研究，以及解锁您已合法获取的音乐文件的个人备份。
+请尊重音乐版权，勿将解密后的文件用于传播或商业用途。
