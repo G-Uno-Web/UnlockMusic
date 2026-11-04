@@ -1,114 +1,175 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>音乐解锁 - 在浏览器本地解锁加密的音乐文件</title>
-  <meta name="description" content="在浏览器中解锁 QQ 音乐、网易云音乐、酷狗、酷我、虾米等加密的音乐文件。100% 本地处理，文件不会上传到任何服务器。">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">🎵</span>
-        <div>
-          <h1>音乐解锁</h1>
-          <p class="subtitle">在浏览器本地解锁加密的音乐文件</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音乐解锁 - 在浏览器本地解锁加密的音乐文件</title>
+    <meta
+      name="description"
+      content="在浏览器中解锁 QQ 音乐、网易云音乐、酷狗、酷我、虾米等加密的音乐文件。100% 本地处理，文件不会上传到任何服务器。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8335716084958178"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🎵</span>
+          <div>
+            <h1>音乐解锁</h1>
+            <p class="subtitle">在浏览器本地解锁加密的音乐文件</p>
+          </div>
+        </div>
+        <div
+          class="privacy-badge"
+          title="所有解密均在您的浏览器中完成，文件不会离开您的设备"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          100% 本地处理 · 无上传
         </div>
       </div>
-      <div class="privacy-badge" title="所有解密均在您的浏览器中完成，文件不会离开您的设备">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        100% 本地处理 · 无上传
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="main">
-    <!-- 上传区 -->
-    <section class="upload-zone" id="uploadZone">
-      <div class="upload-icon">
-        <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
-        </svg>
-      </div>
-      <p class="upload-title">点击选择 或 拖拽文件到此处</p>
-      <p class="upload-hint">支持批量处理，解密在本地多线程并行完成</p>
-      <div class="format-chips" id="formatChips"></div>
-      <input type="file" id="fileInput" multiple hidden
-             accept=".qmc0,.qmc2,.qmc3,.qmc4,.qmc6,.qmc8,.qmcflac,.qmcogg,.tkm,.mflac,.mflac0,.mgg,.mgg0,.mgg1,.mggl,.mmp4,.bkcmp3,.bkcm4a,.bkcflac,.bkcwav,.bkcape,.bkcogg,.bkcwma,.tm0,.tm2,.tm3,.tm6,.cache,.ncm,.uc,.kgm,.kgma,.vpr,.kwm,.xm,.mg3d,.x2m,.x3m,.mp3,.flac,.wav,.m4a,.ogg">
-    </section>
+    <main class="main">
+      <!-- 上传区 -->
+      <section class="upload-zone" id="uploadZone">
+        <div class="upload-icon">
+          <svg
+            viewBox="0 0 24 24"
+            width="56"
+            height="56"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
+          </svg>
+        </div>
+        <p class="upload-title">点击选择 或 拖拽文件到此处</p>
+        <p class="upload-hint">支持批量处理，解密在本地多线程并行完成</p>
+        <div class="format-chips" id="formatChips"></div>
+        <input
+          type="file"
+          id="fileInput"
+          multiple
+          hidden
+          accept=".qmc0,.qmc2,.qmc3,.qmc4,.qmc6,.qmc8,.qmcflac,.qmcogg,.tkm,.mflac,.mflac0,.mgg,.mgg0,.mgg1,.mggl,.mmp4,.bkcmp3,.bkcm4a,.bkcflac,.bkcwav,.bkcape,.bkcogg,.bkcwma,.tm0,.tm2,.tm3,.tm6,.cache,.ncm,.uc,.kgm,.kgma,.vpr,.kwm,.xm,.mg3d,.x2m,.x3m,.mp3,.flac,.wav,.m4a,.ogg"
+        />
+      </section>
 
-    <!-- 工具栏 -->
-    <section class="toolbar" id="toolbar" hidden>
-      <div class="toolbar-left">
-        <span id="summaryText"></span>
-      </div>
-      <div class="toolbar-right">
-        <label class="switch-label" id="instantSaveLabel" hidden>
-          <input type="checkbox" id="instantSaveToggle">
-          <span class="switch"></span>
-          立即保存到文件夹
-        </label>
-        <button class="btn btn-primary" id="downloadAllBtn">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          全部下载 (ZIP)
-        </button>
-        <button class="btn btn-ghost" id="clearBtn">清空列表</button>
-      </div>
-    </section>
+      <!-- 工具栏 -->
+      <section class="toolbar" id="toolbar" hidden>
+        <div class="toolbar-left">
+          <span id="summaryText"></span>
+        </div>
+        <div class="toolbar-right">
+          <label class="switch-label" id="instantSaveLabel" hidden>
+            <input type="checkbox" id="instantSaveToggle" />
+            <span class="switch"></span>
+            立即保存到文件夹
+          </label>
+          <button class="btn btn-primary" id="downloadAllBtn">
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            全部下载 (ZIP)
+          </button>
+          <button class="btn btn-ghost" id="clearBtn">清空列表</button>
+        </div>
+      </section>
 
-    <!-- 结果列表 -->
-    <section class="results" id="results" hidden>
-      <div class="table-wrap">
-        <table class="file-table">
-          <thead>
-            <tr>
-              <th class="col-cover"></th>
-              <th class="col-title">歌曲</th>
-              <th class="col-artist">歌手</th>
-              <th class="col-album">专辑</th>
-              <th class="col-ext">格式</th>
-              <th class="col-size">大小</th>
-              <th class="col-actions">操作</th>
-            </tr>
-          </thead>
-          <tbody id="fileTableBody"></tbody>
-        </table>
-      </div>
-    </section>
+      <!-- 结果列表 -->
+      <section class="results" id="results" hidden>
+        <div class="table-wrap">
+          <table class="file-table">
+            <thead>
+              <tr>
+                <th class="col-cover"></th>
+                <th class="col-title">歌曲</th>
+                <th class="col-artist">歌手</th>
+                <th class="col-album">专辑</th>
+                <th class="col-ext">格式</th>
+                <th class="col-size">大小</th>
+                <th class="col-actions">操作</th>
+              </tr>
+            </thead>
+            <tbody id="fileTableBody"></tbody>
+          </table>
+        </div>
+      </section>
 
-    <!-- 支持格式说明 -->
-    <section class="formats-card">
-      <h2>支持的格式</h2>
-      <div class="format-groups" id="formatGroups"></div>
-      <p class="formats-note">
-        解密后的输出格式即为源文件的原始编码（MP3 / FLAC / OGG / WAV / M4A 等），全程无损、不重新编码。<br>
-        <code>.mflach</code> 等新格式需要使用 <a href="https://git.um-react.app/um/cli" target="_blank" rel="noopener">官方 CLI 版本</a>解锁。
+      <!-- 支持格式说明 -->
+      <section class="formats-card">
+        <h2>支持的格式</h2>
+        <div class="format-groups" id="formatGroups"></div>
+        <p class="formats-note">
+          解密后的输出格式即为源文件的原始编码（MP3 / FLAC / OGG / WAV / M4A
+          等），全程无损、不重新编码。<br />
+          <code>.mflach</code> 等新格式需要使用
+          <a
+            href="https://git.um-react.app/um/cli"
+            target="_blank"
+            rel="noopener"
+            >官方 CLI 版本</a
+          >解锁。
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        本项目功能对标
+        <a href="https://demo.unlock-music.dev/" target="_blank" rel="noopener"
+          >Unlock Music</a
+        >， 解密算法参考其开源实现（MIT License），WASM 模块来自
+        <code>@xhacker/qmcwasm</code> 与
+        <code>@xhacker/kgmwasm</code>（Apache-2.0）。
       </p>
-    </section>
-  </main>
+      <p>
+        ⚠️
+        仅用于解锁您已合法获取的音乐文件（如已购歌曲的个人备份），请尊重版权，勿用于传播。
+      </p>
+    </footer>
 
-  <footer class="footer">
-    <p>
-      本项目功能对标 <a href="https://demo.unlock-music.dev/" target="_blank" rel="noopener">Unlock Music</a>，
-      解密算法参考其开源实现（MIT License），WASM 模块来自 <code>@xhacker/qmcwasm</code> 与 <code>@xhacker/kgmwasm</code>（Apache-2.0）。
-    </p>
-    <p>⚠️ 仅用于解锁您已合法获取的音乐文件（如已购歌曲的个人备份），请尊重版权，勿用于传播。</p>
-  </footer>
+    <!-- Toast 容器 -->
+    <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Toast 容器 -->
-  <div class="toast-container" id="toastContainer"></div>
+    <!-- 单曲音频预览 -->
+    <audio id="previewAudio" hidden></audio>
 
-  <!-- 单曲音频预览 -->
-  <audio id="previewAudio" hidden></audio>
-
-  <script src="js/zip.js"></script>
-  <script type="module" src="js/main.js"></script>
-</body>
+    <script src="js/zip.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
 </html>
